@@ -159,13 +159,17 @@ def getBooksByTitle(control, title):
     # TODO lab 6, conectar con la funcion model.getBooksByTitle()
     """
     Completar la descripcion de getBooksByTittle
-    """
-    pass
+    """ 
+    books= model.getBookByTitle(control["model"], title)
+    return books
+    
 
 
 def titlesSize(control):
-    # TODO lab 6, conectar con la funcion model.titlesSize()
+      # TODO lab 6, conectar con la funcion model.titlesSize()
     """
     Completar la descripcion de titlesSize
     """
-    pass
+    booksSize= model.titlesSize(control["model"])
+    return booksSize
+

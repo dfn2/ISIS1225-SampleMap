@@ -53,8 +53,9 @@ def newCatalog():
 
     Retorna el catalogo inicializado.
     """
-    # TODO lab 6, agregar llave de "titles" para el indice de libros
-    catalog = {'books': None,
+     # TODO lab 6, agregar llave de "titles" para el indice de libros
+    catalog = {"titles": None,
+                'books': None,
                'bookIds': None,
                'authors': None,
                'tags': None,
@@ -120,7 +121,10 @@ def newCatalog():
     La columna 'titles' del archivo books.csv
     """
     # TODO lab 6, agregar el ADT map con newMap()
-    catalog['titles'] = None
+    catalog['titles'] = mp.newMap(10000,
+                                  maptype="PROBING",
+                                  loadfactor=0.5,
+                                  cmpfunction= compareTitles)
 
     return catalog
 
@@ -270,7 +274,15 @@ def addBookTitle(catalog, book):
     """
     Completar la descripcion de addBookTitle
     """
-    pass
+    title = book["title"]
+    mapa_titles = catalog["titles"]
+    
+    if not mp.contains(mapa_titles,title):
+        lista = lt.newList()
+        mp.put(mapa_titles,title,lista)
+    else:
+        lista = mp.get(mapa_titles,title)["value"]
+    lt.addLast(lista,book)
 
 
 # ==============================
@@ -314,7 +326,11 @@ def getBookByTitle(catalog, title):
     """
     Completar la descripcion de getBookByTitle
     """
-    pass
+    mapa_titles= catalog["titles"]
+    if mp.contains(mapa_titles,title):
+         
+     rta = mp.get(mapa_titles, title)["value"]
+     return rta
 
 
 def booksSize(catalog):
@@ -340,10 +356,11 @@ def tagsSize(catalog):
 
 def titlesSize(catalog):
     # TODO lab 6, retornar el numero de libros en el catalogo
+    
     """
     Completar la descripcion de titlesSize
     """
-    pass
+    return mp.size(catalog["titles"])
 
 
 # ==============================
@@ -431,7 +448,6 @@ def compareYears(year1, year2):
 
 
 def compareTitles(title, book):
-    # TODO lab 6, cmp para comparar dos titulos de libros para ADT Map
     """ Completar la descripcion de compareTitles
 
     Args:
@@ -442,4 +458,13 @@ def compareTitles(title, book):
         int: retrona 0 si son iguales, 1 si el primero es mayor
         y -1 si el primero es menor
     """
-    pass
+    book_t= book["title"]
+    if (title == book_t):
+        return 0
+    elif (title > book_t):
+        return 1
+    else:
+        return -1
+    # TODO lab 6, cmp para comparar dos titulos de libros para ADT Map
+    
+

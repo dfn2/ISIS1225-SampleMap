@@ -109,15 +109,13 @@ def printBestBooks(books):
         print('No se encontraron libros.\n')
 
 
-def printBooksbyTitle(books):
+def printBooksbyTitle(control, title):
     # TODO lab 6, completar la funcion para imprimir los libros
-    """
-    Completar la descripcion de printBooksbyTitle
-    """
-    pass
+    rta = controller.getBooksByTitle(control, title)
+    
 
 # Menu de opciones
-
+    print(" los libros encontrados son: ", rta)
 
 def printMenu():
     print("Bienvenido")
@@ -127,6 +125,7 @@ def printMenu():
     print("4- Consultar los libros de un autor")
     print("5- Consultar los Libros por etiqueta")
     # TODO lab 6, agregar la opcion nueva del menu
+    print("6- Consultar los libros por titulo")
     print("0- Salir")
 
 
@@ -164,6 +163,9 @@ while True:
 
     elif int(inputs[0]) == 6:
         # TODO lab 6, conectar con las funciones del controlador e imprimir
+        titulo= input("Nombre del libro a buscar: ")
+        books= controller.getBooksByTitle(ctrlr, titulo)
+        printBooksbyTitle(books)
         pass
 
     elif int(inputs[0]) == 0:
